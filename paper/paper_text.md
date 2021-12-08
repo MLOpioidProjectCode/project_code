@@ -4,19 +4,22 @@
 
 ##### Required length: 250 words
 
-According to the United States Center for Disease Control, in 2019 more than 50,000 people in the United States died from opioid-related overdoses. Additionally, studies estimate that the total "economic burden" of prescription opioid misuse in the United States is $78.5 billion a year, including the costs of healthcare, lost productivity, addiction treatment, and criminal justice involvement \cite{dataabuse.gov}. While the United States is certainly not the only country suffering from this epidemic, statistics like these make it clear that COVID-19 is not the only major medical crisis nations are struggling to contain at the moment.
+- Is enough information provided to get a clear idea about the subject matter?
+- Is the abstract conveying the findings?
+- Are the main points of the report described succinctly?
 
 TODO: explain our implementation, goal, results
 
 ### Introduction
 
-##### Required length: 1/2 to 1 page
+Opioid addiction and overdose have become tragic and inescapable threads in the fabric of American daily life. Many Americans know someone who has died of a drug overdose, and even if they do not, headlines announcing high-profile overdose deaths are common news items. Among the hundreds of thousands of opioid related deaths in the past few years are celebrated musicians Prince, Mac Miller, and Tom Petty; accomplished athletes including pitcher Tyler Skaggs, football player Jake Ehlinger, and NHL player Jimmy Hayes; and lauded actors like Philip Seymore Hoffman. 
 
-- Does the introduction cover the required background information to understand the work?
-- Is the introduction well organized: it starts out general and becomes more specific towards the end?
-- Is there a motivation explaining why this project is relevant, important, and/or interesting?
+Data also sheds insight into the scope of this epidemic. According to the United States Center for Disease Control, in 2019 more than 50,000 people in the United States died from opioid-related overdoses \cite{dataabuse.gov}. It is also estimated that 3 million Americans suffer from opioid use disorder, and in 2020, a staggering 93,000 people died in the United States from drug overdoses \cite{statnews.com}, most of which were related to opioids. Additionally, studies estimate that the total "economic burden" of prescription opioid misuse in the United States is $78.5 billion a year, including the costs of healthcare, lost productivity, addiction treatment, and criminal justice involvement \cite{dataabuse.gov}. While the United States is certainly not the only country suffering from this epidemic, statistics like these make it clear that COVID-19 is not the only major medical crisis nations are struggling to contain at the moment.
 
-TODO: Implement
+Despite numerous studies related to opoiod use, we feel there is ample room to take a “deep dive” into publicly-available data and see if we can draw useful conclusions to perhaps provide insight into qualming this crisis. We plan to focus US federal and state datasets to both take a broad look at the situation while also allowing us to delve deeper into more localized data to potentially find trends. More specifically, we hope to place more emphasis on examining the impact of opioid prescribers instead of focusing solely on opioid users, as has been done in other studies. To do this, will first test various machine learning models to try and create classifiers to predict the likelihood that a given doctor is a significant prescriber of opioids using a national dataset. We will then take that model and use it for analysis of a more local dataset -- specifically for the state of Connecticut -- to see if we can find relationships between prescribers who are classified as likely to prescribe opioids and the side effects of opioids, such as drug overdose and rehab data.
+
+While we do have high hopes for this project, we acknowledge that we are tackling a tough issue that does not necessarily have a perfect answer which can be prescribed by a single machine learning algorithm; indeed, some data we’d like to ideally have for our analysis (such as a better insight into the prevalence of illegal opioids by geography) are simply not available. We also recognize that we have certain limitations geographically on our datasets, as our data is only focused only on the United States. However, we are confident that our exploratory analysis will shed some insights into the nature of this crisis worldwide.
+
 
 ### Related Work
 
