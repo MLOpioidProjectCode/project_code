@@ -73,27 +73,8 @@ TODO: Implement
 
 We would like to acknowledge the assistance of our Machine Learning professor, Aanchan Mohan, for his insight in the early stages of our project. He was especially helpful to us when trying to hone in on specific aspects to focus on for our analysis of the opioid crisis, taking time to help find previous scholarly works as inspiration for our final product.
 
-### Contribution
+### Contributions
 
-##### Required length: 1/3 to 1/2 page
+Overall, the amount of work necessary for this project, and its broad scope, made having four group members an asset, and allowed us to evenly split the workload relatively easily. In the work leading up to the proposal, each group member equally researched potential ideas for our project; and when we settled on the opioid crisis, we all spent time looking up datasets we could potentially use. When it came to actually writing the proposal itself, that too was more or less split equally; each of us was responsible for at least one section, and we came together to transform our prose into an acceptable LaTex format. Once the proposal was submitted and we received feedback, we also met regularly to discuss changes to our implementation and next steps.
 
-- Megan
-  - Wrote two sections of Proposal
-  - Created Github org/repo for our code, pushed raw datasets
-  - Helped clean datasets, specifically classifying drugs in federal datasets as opioid or non-opioid for training our models
-  - Wrote about half of paper, put paper together using LaTex template
-  - Put together powerpoint
-- Yoselyn
-  - Wrote section of Proposal, put together into LaTex format
-  - Contributed analysis on impact of lobbying groups on opioid distrubution
-  - Found several new national datasets to use and cleaned them
-- Matthew
-  - Wrote section of proposal
-  - Contributed analysis on opioid prescriber rates at the state level
-  - Found new state-level datasets to use and cleaned them
-- Adithya
-  - Wrote section of proposal
-  - Contributed analysis on opioid prescriber characteristics at the federal level to train a classifier which can predict whether a prescriber is a likely dispenser of opioids
-  - Cleaned datasets for analysis
-
-TODO: Make sure this list is accurate, once it is make it prose
+When it came to the main piece of our project, we decided to ultimately do three unique analyses, so three of our group members took responsibility for those specific analyses. Yoselyn focused on the piece of our analysis which covered the effect of lobbying groups on opioid distribution rates; Adithya was responsible for the prescriber classifier portion of our analysis; and Matthew finished the piece on our state-level analysis. To get their analyses to work, all three of these group members needed to clean the raw datasets to their liking, and in some cases find additional datasets to complement the shared federal ones in our Github repo. They all also completed a python workbook with their findings, wrote the sections of this paper specific to their analyses, and added some slides to our PowerPoint presentation about their findings. This left Megan to handle most of the other work necessary for this project. She set up the initial Github repo holding our shared works and populated with raw datasets; helped other group members with cleaning and formatting datasets; put together the majority of the PowerPoint presentation; and wrote about half of this report, including putting it together in LaTex format.
