@@ -2,13 +2,8 @@
 
 ### Abstract
 
-##### Required length: 250 words
+According to the US Center for Disease Control and Prevention, since 1999 almost 850,000 people have died from drug overdoses, and in 2019 more than 70% of these deaths were attributed solely to opioids \cite{cdc:dataOverview}. While previous studies have used publicly-available data and machine learning models to try and aid in solving this crisis, the vast majority of previous works have focused mainly on users of opioids, specifically using models to predict an individual’s chance to become addicted to opioids. For our contribution to this body of work, we instead focus on another side of the opioid supply chain: opioid prescribers. We tackle this topic on three separate fronts, narrowing our analyses to the United States. We first analyze possible influencers to opioid prescribing rates, specifically whether we can find any correlation between pro-prescription lobbying efforts and opioid prescribing rates. We then test several machine learning models to fit a predictor which can identify providers likely to be prescribers of opioids. Finally, we take that model, trained on national data, and apply it to a hyper-local dataset for the state of Connecticut to see if we can garner any additional insights. Surprisingly, we find that lobbying efforts didn’t have as much of an impact as we thought on opioid distribution rates, despite the huge sums of money being used for said efforts. We also find that Gradient Boosting worked best for both our national predictor model as well as our state-level analysis.
 
-- Is enough information provided to get a clear idea about the subject matter?
-- Is the abstract conveying the findings?
-- Are the main points of the report described succinctly?
-
-TODO: explain our implementation, goal, results
 
 ### Introduction
 
