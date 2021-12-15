@@ -71,13 +71,7 @@ TODO: Implement
 
 ### Acknowledgements
 
-##### Required length: 2 to 4 sentences
-
-List acknowledgements if any. For example, if someone provided you a dataset, or
-you used someone else's resources, this is a good place to acknowledge
-the help or support you received.
-
-TODO: Implement
+We would like to acknowledge the assistance of our Machine Learning professor, Aanchan Mohan, for his insight in the early stages of our project. He was especially helpful to us when trying to hone in on specific aspects to focus on for our analysis of the opioid crisis, taking time to help find previous scholarly works as inspiration for our final product.
 
 ### Contribution
 
