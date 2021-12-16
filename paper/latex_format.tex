@@ -166,6 +166,14 @@ Since we are using Gradient Booster as a classifier, the cost function is Log lo
    \label{fig:states2-1col}
 \end{figure}
 
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=1.0\linewidth]{figures/opioidvsnon.png}
+   \end{center}
+      \caption{Opioid Prescribers vs Non-Prescribers}
+   \label{fig:opioidvsnon-1col}
+\end{figure}
+
 The dataset we used has been downloaded from kaggle where it originates from cms.gov. \cite{prescriberDataset} 
 
 This dataset contains summaries of prescription records for 250 common opioid and non-opioid drugs written by 25,000 unique licensed medical professionals in 2014 in the United States for citizens covered under Class D Medicare as well as some metadata about the doctors themselves. This is a small subset of data that was sourced from cms.gov. The full dataset contains almost 24 million prescription instances in long format. I have cleaned and compiled this data here in a format with 1 row per prescriber and limited the approximately 1 million total unique prescribers down to 25,000 to keep it manageable. 
@@ -183,14 +191,14 @@ The data consists of the following characteristics for each prescriber:
 \end{itemize}
 
 Once we had the dataset ready, we moved on to preprocessing and exploring the data.
-There wasn't much cleaning needed for our dataset apart from converting our categorical columns (Credentials & Specialty) to values. We used the label encoder provided by sklearn.preprocessing library to encode the columns with values between 0 and n_classes - 1.
+There wasn't much cleaning needed for our dataset apart from converting our categorical columns (Credentials and Specialty) to values. We used the label encoder provided by sklearn.preprocessing library to encode the columns with values between 0 and n\_classes - 1.
 
 The following are the observations we made from the dataset:
 
 \begin{enumerate}
    \item As seen in Figure 1, the state of California is leading with the highest number of deaths due to overdose. Pennsylvania has been hit particularly hard with 2,750 reported overdose deaths in 2014. It was closely followed by Florida,which has 2600 reported overdose deaths (Please refer to the jupyter notebook \cite{adithyasNotebook} for info on more states).
    \item We need to remember, however, California is a huge state with a matching population. Even though the total number of deaths is huge, it doesn't imply that people in California have a higher death rate. Because of this we need to take a look at the values of deaths per capita. We saw that West Virginia, New Mexico, New Hampshire, Ohio, Kentucky and Delaware stand out. This is shown in Figure 2.
-   \item We also found that the dataset has a slightly higher number of opioid prescribers, when we plot the opioid prescriber count vs non opioid prescriber count.
+   \item We also found that the dataset has a slightly higher number of opioid prescribers, when we plot the opioid prescriber count vs non opioid prescriber count. This is seen in Figure 3.
  \end{enumerate}
 
  Once we were done with preprocessing our data, we moved on to building our prediction model. For our prediction model we used the five classification algorithms mentioned earlier. We used sklearn modules (sklearn.linear\_model, sklearn.neighbors, sklearn.ensemble) to run the classifiers for our models.
@@ -203,6 +211,9 @@ The Area Under the Curve (AUC) is the measure of the ability of a classifier to 
 
 The Accuracy score is the fraction of predictions our model got right. Formally, accuracy has the following definition:
 
+$$Accuracy\;=\;\frac{TP\;+\;TN}{TP\;+\;TN\;+\;FP\;+\;FN}$$,
+
+where $TP$ = True Positives, $TN$ = True Negatives, $FP$ = False Positives, and $FN$ = False Negatives.
 
 \subsection{State-Specific Analysis}
 
