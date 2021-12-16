@@ -86,6 +86,11 @@ Despite these insights, there have been several recent works which highlight pot
 
 \subsection{Lobbying Analysis}
 
+The prediction classifier used for this experiment was linear regression. We are trying to 
+identify  the correlation between s set of scalars and one independent variable. In this case we have lobbying contribution amounts being our dependent variable. This model will calculate the rate of disturbance and find a line of best-fit to show the relationship. 
+We can find the line of best-fit using the following formula:
+$$y\;=\;\theta_1\;+\;\theta_2\;x$$
+Here $\theta_1$ represents the error amount and $\theta_2$ represents the rate of change given $x$ input variables.
 
 \subsection{Prescriber Classifier Analysis}
 
@@ -94,7 +99,6 @@ The following classification algorithms were used to build our prediction model:
 \paragraph{Perceptron.} The key idea here is to separate the input into two categories, positive or negative, by drawing a line (a linear operation) in the feature space. The algorithm iteratively corrects misclassifications by adjusting the classification line or boundary. 
 
 We can represent the perceptron in vector form as follows:
-
 $$h(x) = \sin\left(\sum_{i=0}^dw_ix_i\right) = \sin\left(w^Tx\right)$$
 
 Each “tall” \emph{w} represents a hypothesis \emph{h} and is multiplied with “tall” \emph{x}.
@@ -102,7 +106,6 @@ Each “tall” \emph{w} represents a hypothesis \emph{h} and is multiplied with
 \paragraph{KNearestNeighbors.} The key idea here is to find which training data is closest to the test instance, and classify the test instance as that class.
 
 Majority vote from k-nearest neighbors is defined as:
-
 $$y = argmax\sum_{\left(x_i,y_i\right)\in D_z}I\left(v = y_i\right)$$
 
 where:
@@ -118,7 +121,6 @@ where:
 
 With the independence assumption, the probability of class yj generating instance x can 
 then be estimated as:
-
 $$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\vert y_j\right)\;\times\;...\;\times\;P\left(x_n\vert y_j\right)$$
 
 \paragraph{Decision Trees.} This model follows a directed tree structure composed of nodes where each node specifies an evaluation on a feature and each branch corresponds to a feature value/condition. The leaves signify categorical decision or class. The main reasons for using decision trees are that the decision trees: 
@@ -152,7 +154,7 @@ $$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\ve
    \begin{center}
       \includegraphics[width=1.0\linewidth]{figures/states1.png}
    \end{center}
-      \caption{Overdose Deaths Per State}
+      \caption{Select Overdose Deaths Per State}
    \label{fig:google-scholar-1col}
 \end{figure}
 
@@ -160,7 +162,7 @@ $$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\ve
    \begin{center}
       \includegraphics[width=1.0\linewidth]{figures/states2.png}
    \end{center}
-      \caption{Overdose Deaths Per State and Per Capita}
+      \caption{Select Overdose Deaths Per State and Per Capita}
    \label{fig:states2-1col}
 \end{figure}
 
