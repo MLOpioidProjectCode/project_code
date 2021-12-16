@@ -99,13 +99,42 @@ $$h(x) = \sin\left(\sum_{i=0}^dw_ix_i\right) = \sin\left(w^Tx\right)$$
 
 Each “tall” \emph{w} represents a hypothesis \emph{h} and is multiplied with “tall” \emph{x}.
 
-\paragraph{KNearestNeighbors.}
+\paragraph{KNearestNeighbors.} The key idea here is to find which training data is closest to the test instance, and classify the test instance as that class.
 
-\paragraph{Gaussian Naïve Bayes.}
+Majority vote from k-nearest neighbors is defined as:
 
-\paragraph{Decision Trees.}
+$$y = argmax\sum_{\left(x_i,y_i\right)\in D_z}I\left(v = y_i\right)$$,
 
-\paragraph{Gradient Booster.}
+where:
+\begin{itemize}
+ 
+   \item \emph{v} is a class label
+   \item $y_i$ is the class label for one of the nearest neighbors
+   \item \emph{I(.)} is the  indicator function (i.e., 1 if the argument is true, 0 otherwise).
+
+\end{itemize}
+
+\paragraph{Gaussian Naïve Bayes.} The algorithm assumes that selected features are equally important and statistically independent (given the class value). 
+
+With the independence assumption, the probability of class yj generating instance x can 
+then be estimated as:
+
+$$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\vert y_j\right)\;\times\;...\;\times\;P\left(x_n\vert y_j\right)$$
+
+\paragraph{Decision Trees.} This model follows a directed tree structure composed of nodes where each node specifies an evaluation on a feature and each branch corresponds to a feature value/condition. The leaves signify categorical decision or class. The main reasons for using decision trees are that the decision trees: 
+
+\begin{itemize}
+ 
+   \item Divide the feature space into axis parallel rectangles , thus providing an easy method for distinctly dividing the feature set as opioid or non opioid based on the input feature set.
+   \item The target function is discrete valued and decision trees work well in predicting discrete valued target functions.
+
+\end{itemize}
+
+\paragraph{Gradient Booster.} Gradient boosting works by building simpler (weak) prediction models sequentially where each model tries to predict the error left over by the previous model. Because of this, the algorithm tends to overfit rather quickly. We combine many weak learners to come up with one strong learner. The weak learners here are the individual decision trees.
+
+\emph{Learning rate} and \emph{n\_estimators} are two critical hyperparameters for gradient boosting decision trees. Learning rate, denoted as $\alpha$, simply means how fast the model learns. Each tree added modifies the overall model. The magnitude of the modification is controlled by learning rate. The lower the learning rate, the slower the model learns. The advantage of a slower learning rate is that the model becomes more robust and efficient. In statistical learning, models that learn slowly perform better. However, learning slowly comes at a cost. It takes more time to train the model which brings us to the other significant hyperparameter. The n\_estimator is the number of trees used in the model. For our model, we used a learning rate of 0.1 and n\_estimator of 200.
+
+Since we are using Gradient Booster as a classifier, the cost function is Log loss.
 
 \subsection{State-Specific Analysis}
 
