@@ -221,11 +221,41 @@ where $TP$ = True Positives, $TN$ = True Negatives, $FP$ = False Positives, and 
 \section{Results and Discussion}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 2 to 3 pages.}\vspace{1cm}
+\subsection{Lobbying Analysis}
 
-Describe the results you obtained from the experiments and interpret them.
-Optionally, you could split "Results and Discussion" into two separate
-sections, but it is often easier to present the results and discuss them at the same time. In this section, you will likely want to create several subsections that address your specific research questions. As an example for structuring the Results and Discussion section, you can take a look at the following paper: \url{anonymized}.
+\subsection{Prescriber Classifier Analysis}
+
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=1.0\linewidth]{figures/predictormodel1.png}
+   \end{center}
+      \caption{Results for Prescriber Classifier, No Cross-Validation}
+   \label{fig:predictormodel1-1col}
+\end{figure}
+
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=1.0\linewidth]{figures/predictormodel2.png}
+   \end{center}
+      \caption{Results for Prescriber Classifier, 5-Fold Cross-Validation}
+   \label{fig:predictormodel2-1col}
+\end{figure}
+
+The evaluation of our prediction models was done by splitting the data into training and testing sets. The model was also evaluated by splitting the data using stratified k-fold cross-validation.
+
+Figure 4 shows the results we obtained on the test data for the train-test splits. According to the Train-Test Splits, the KNN & the Gradient Booster classifiers have better Accuracy and AUROC scores when compared to the other classifiers.
+
+Figure 5 shows the results when using 5-fold cross validation. According to the 5-Fold Cross Validation, the Gradient Boosting classifier has better Accuracy and AUROC scores when compared to the other classifiers.
+
+Looking at the average scores from the two model evaluators, we can conclude that the KNN & Gradient Booster Classifiers perform the best on the given data since they yield the highest accuracy and auroc scores when evaluated using the train-test split and k-folds cross-validation methods.
+The difference is statistically significant since the classifiers have been evaluated 100 times and the accuracy and the roc scores have been averaged across the 100 iterations. We can also see that the standard deviation of the scores for each classifier are very small.
+
+From the aforementioned accuracy scores, we can see the perceptron and the Gaussian Naïve Bayes performed the worst, only achieving accuracy scores 70 and 61 respectively.
+An explanation to why the Gaussian Naïve Bayes performed the worst is that the GNB algorithm assumes the features to be independent of each other and for our prediction algorithm, we considered features such as credentials, specialty and list of drugs which are highly correlated. 
+One of the reasons the perceptron performed badly is because our data was not linearly separable. The perceptron works best when the data is linearly-separable.
+
+
+\subsection{State-Specific Analysis}
 
 %-------------------------------------------------
 \section{Conclusions}
