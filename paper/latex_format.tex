@@ -53,7 +53,7 @@ Adithya Chundailthodi\\
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-   According to the US Center for Disease Control and Prevention, since 1999 almost 850,000 people have died from drug overdoses, and in 2019 more than 70\% of these deaths were attributed solely to opioids \cite{cdc:dataOverview}. While previous studies have used publicly-available data and machine learning models to try and aid in solving this crisis, the vast majority of previous works have focused mainly on users of opioids, specifically using models to predict an individual's chance to become addicted to opioids. For our contribution to this body of work, we instead focus on another side of the opioid supply chain: opioid prescribers. We tackle this topic on three separate fronts, narrowing our analyses to the United States. We first analyze possible influencers to opioid prescribing rates, specifically whether we can find any correlation between pro-prescription lobbying efforts and opioid prescribing rates. We then test several machine learning models to fit a predictor which can identify providers likely to be prescribers of opioids. Finally, we take that model, trained on national data, and apply it to a hyper-local dataset for the state of Connecticut to see if we can garner any additional insights. Surprisingly, we find that lobbying efforts didn't have as much of an impact as we thought on opioid distribution rates, despite the huge sums of money being used for said efforts. We also find that Gradient Boosting worked best for both our national predictor model as well as our state-level analysis.
+   \textit{According to the US Center for Disease Control and Prevention, since 1999 almost 850,000 people have died from drug overdoses, and in 2019 more than 70\% of these deaths were attributed solely to opioids \cite{cdc:dataOverview}. While previous studies have used publicly-available data and machine learning models to try and aid in solving this crisis, the vast majority of previous works have focused mainly on users of opioids, specifically using models to predict an individual's chance to become addicted to opioids. For our contribution to this body of work, we instead focus on another side of the opioid supply chain: opioid prescribers. We tackle this topic on three separate fronts, narrowing our analyses to the United States. We first analyze possible influencers to opioid prescribing rates, specifically whether we can find any correlation between pro-prescription lobbying efforts and opioid prescribing rates. We then test several machine learning models to fit a predictor which can identify providers likely to be prescribers of opioids. Finally, we take that model, trained on national data, and apply it to a hyper-local dataset for the state of Connecticut to see if we can garner any additional insights. Surprisingly, we find that lobbying efforts didn't have as much of an impact as we thought on opioid distribution rates, despite the huge sums of money being used for said efforts. We also find that Gradient Boosting worked best for both our national predictor model as well as our state-level analysis.}
 \end{abstract}
 
 %%%%%%%%% BODY TEXT
@@ -110,7 +110,7 @@ where:
  
    \item \emph{v} is a class label
    \item $y_i$ is the class label for one of the nearest neighbors
-   \item \emph{I(.)} is the  indicator function (i.e., 1 if the argument is true, 0 otherwise).
+   \item \emph{I} is the  indicator function (i.e., 1 if the argument is true, 0 otherwise).
 
 \end{itemize}
 
@@ -136,6 +136,7 @@ $$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\ve
 
 Since we are using Gradient Booster as a classifier, the cost function is Log loss.
 
+
 \subsection{State-Specific Analysis}
 
 
@@ -144,38 +145,66 @@ Since we are using Gradient Booster as a classifier, the cost function is Log lo
 \section{Experiments}
 %-------------------------------------------------
 
-\subsection{Dataset}
-
-Briefly describe your dataset in a separate subsection.
+\subsection{Lobbying Analysis}
 
 
-Table \ref{tab:some-table} shows an example for formatting a table.
+\subsection{Prescriber Classifier Analysis}
 
-\begin{table}
-\begin{center}
-\begin{tabular}{|l|c|}
-\hline
-Method & Accuracy \\
-\hline\hline
-Method 1 & $70 \pm 3$ \% \\
- Method 2 & $76 \pm 3$ \% \\
-\hline
-\end{tabular}
-\end{center}
-\label{tab:some-table}
-\caption{This is an example of a table.}
-\end{table}
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=1.0\linewidth]{figures/states1.png}
+   \end{center}
+      \caption{Overdose Deaths Per State}
+   \label{fig:google-scholar-1col}
+\end{figure}
+
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=1.0\linewidth]{figures/states2.png}
+   \end{center}
+      \caption{Overdose Deaths Per State and Per Capita}
+   \label{fig:states2-1col}
+\end{figure}
+
+The dataset we used has been downloaded from kaggle where it originates from cms.gov. \cite{prescriberDataset} 
+
+This dataset contains summaries of prescription records for 250 common opioid and non-opioid drugs written by 25,000 unique licensed medical professionals in 2014 in the United States for citizens covered under Class D Medicare as well as some metadata about the doctors themselves. This is a small subset of data that was sourced from cms.gov. The full dataset contains almost 24 million prescription instances in long format. I have cleaned and compiled this data here in a format with 1 row per prescriber and limited the approximately 1 million total unique prescribers down to 25,000 to keep it manageable. 
+The data consists of the following characteristics for each prescriber:
+
+\begin{itemize}
+ 
+   \item \emph{NPI} - unique National Provider Identifier number
+   \item \emph{Gender} - male (M) or female (F)
+   \item \emph{State} - U.S. State by abbreviation
+   \item \emph{Specialty} - description of type of medicinal practice
+   \item A long list of drugs with numeric values indicating the total number of prescriptions written for the year by that individual
+   \item \emph{Opioid.Prescriber} - a boolean label indicating whether or not that individual prescribed opiate drugs more than 10 times in the year
+
+\end{itemize}
+
+Once we had the dataset ready, we moved on to preprocessing and exploring the data.
+There wasn't much cleaning needed for our dataset apart from converting our categorical columns (Credentials & Specialty) to values. We used the label encoder provided by sklearn.preprocessing library to encode the columns with values between 0 and n_classes - 1.
+
+The following are the observations we made from the dataset:
+
+\begin{enumerate}
+   \item As seen in Figure 1, the state of California is leading with the highest number of deaths due to overdose. Pennsylvania has been hit particularly hard with 2,750 reported overdose deaths in 2014. It was closely followed by Florida,which has 2600 reported overdose deaths (Please refer to the jupyter notebook \cite{adithyasNotebook} for info on more states).
+   \item We need to remember, however, California is a huge state with a matching population. Even though the total number of deaths is huge, it doesn't imply that people in California have a higher death rate. Because of this we need to take a look at the values of deaths per capita. We saw that West Virginia, New Mexico, New Hampshire, Ohio, Kentucky and Delaware stand out. This is shown in Figure 2.
+   \item We also found that the dataset has a slightly higher number of opioid prescribers, when we plot the opioid prescriber count vs non opioid prescriber count.
+ \end{enumerate}
+
+ Once we were done with preprocessing our data, we moved on to building our prediction model. For our prediction model we used the five classification algorithms mentioned earlier. We used sklearn modules (sklearn.linear\_model, sklearn.neighbors, sklearn.ensemble) to run the classifiers for our models.
+The evaluation of our prediction models was done by splitting the data into training and testing sets (sklearn. model selection. train test split). 90\% of the data was then used for training and the remaining 10\% for testing.
+The model was also evaluated by splitting the data using stratified k-fold cross-validation
+(sklearn. model selection.StratifiedKFold). We used 5 folds or splits so that for each fold, 90\% of the data is used for training and the remaining 10\% for testing.
+We repeated this process a total of 100 times to obtain 100 measures of performance for each classifier and calculated the average accuracy and average area under the roc curve scores. 
+
+The Area Under the Curve (AUC) is the measure of the ability of a classifier to distinguish between classes and is used as a summary of the ROC curve. The higher the AUC, the better the performance of the model at distinguishing between the positive and negative classes.
+
+The Accuracy score is the fraction of predictions our model got right. Formally, accuracy has the following definition:
 
 
-
-
-\subsection{Software}
-
-Briefly list (and cite) software software you used.
-
-\subsection{Hardware}
-
-If relevant, list hardware resources you used.
+\subsection{State-Specific Analysis}
 
 %-------------------------------------------------
 \section{Results and Discussion}
