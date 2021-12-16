@@ -146,7 +146,20 @@ $$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\ve
 %-------------------------------------------------
 
 \subsection{Lobbying Analysis}
-
+There were three datasets for 2018 and 2019 that were used in this experiment. The datasets were taken from US government datasets. \cite{arcos} \cite{fec} \cite{medicareRates}
+The first dataset consists of prescribing rates data in the United States by state. The second dataset contains the amounts of drug distributions in the United States at the state level. The third dataset contains monetary contributions made by large pharmaceutical companies. We linked all three datasets by year and by state when the data was present. The datasets were reduced to about 80,000 rows by taking sums of some of the features. 
+Once the data was merged we used Python's built in Spearman correlation ranking tool to go through a series of feature selection. The list of features included:
+\begin{itemize}
+   \item \emph{Year} - whether data was from year 2018 or 2019
+   \item \emph{Breakout} - urban or rural area
+   \item \emph{Tot\_Opioid\_Prscrbrs} - total number of prescribers in the US
+   \item \emph{Tot\_Clms} - total number of claims made by state
+   \item \emph{Opioid\_Prscrbng\_Rate\_5Y\_Chg} - the rate of change in a 5 year period
+   \item \emph{Opioid\_Prscrbng\_Rate\_1Y\_Chg} - the rate of change in a 1 year period
+   \item \emph{Prscrbr\_State\_Abrvtn} - the state the data was taken from
+   \item \emph{Total\_grams} - total amount of opioids distributed by state
+   \item \emph{Contributor\_aggregate\_ytd} - total amount of lobbying contributions by year
+\end{itemize}
 
 \subsection{Prescriber Classifier Analysis}
 
@@ -230,7 +243,7 @@ where $TP$ = True Positives, $TN$ = True Negatives, $FP$ = False Positives, and 
 
 The evaluation of the model was done by comparing the mean squared error of the predicted values and the actual values. The mean-squared error of the three samples taken was less than two.  We also took the $R^2$ scores which ranged between -.02 and .01. The $R^2$ value represents the proportion of variance of the dependent variables. These numbers are low implying our model was successful, however the merging of the data might have caused it to be overfitted. The results are so close to 0 that the model is at risk of being too biased and therefore unreliable.
 
-Figure 4 shows the scatter plot for the best performing subset. Even though the squared mean value is low, the results are difficult to interpret. With linear regression we aim to find a linear representation and from the plot we see that is not possible. It is probable that linear regression was the wrong approach for this prediction. There are two other figures and additional results included in the project repository with similar results. 
+Figure 4 shows the scatter plot for the best performing subset. Even though the squared mean value is low, the results are difficult to interpret. With linear regression we aim to find a linear representation and from the plot we see that is not possible. It is probable that linear regression was the wrong approach for this prediction. There are two other figures and additional results included in the project repository \cite{yoselynsNotebook} with similar results. 
 
 \subsection{Prescriber Classifier Analysis}
 
