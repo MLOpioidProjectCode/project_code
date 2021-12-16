@@ -103,7 +103,7 @@ Each “tall” \emph{w} represents a hypothesis \emph{h} and is multiplied with
 
 Majority vote from k-nearest neighbors is defined as:
 
-$$y = argmax\sum_{\left(x_i,y_i\right)\in D_z}I\left(v = y_i\right)$$,
+$$y = argmax\sum_{\left(x_i,y_i\right)\in D_z}I\left(v = y_i\right)$$
 
 where:
 \begin{itemize}
@@ -130,11 +130,9 @@ $$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\ve
 
 \end{itemize}
 
-\paragraph{Gradient Booster.} Gradient boosting works by building simpler (weak) prediction models sequentially where each model tries to predict the error left over by the previous model. Because of this, the algorithm tends to overfit rather quickly. We combine many weak learners to come up with one strong learner. The weak learners here are the individual decision trees.
+\paragraph{Gradient Booster.} Gradient boosting works by building simpler (weak) prediction models sequentially where each model tries to predict the error left over by the previous model. We combine many weak learners to come up with one strong learner. The weak learners here are the individual decision trees.
 
-\emph{Learning rate} and \emph{n\_estimators} are two critical hyperparameters for gradient boosting decision trees. Learning rate, denoted as $\alpha$, simply means how fast the model learns. Each tree added modifies the overall model. The magnitude of the modification is controlled by learning rate. The lower the learning rate, the slower the model learns. The advantage of a slower learning rate is that the model becomes more robust and efficient. In statistical learning, models that learn slowly perform better. However, learning slowly comes at a cost. It takes more time to train the model which brings us to the other significant hyperparameter. The n\_estimator is the number of trees used in the model. For our model, we used a learning rate of 0.1 and n\_estimator of 200.
-
-Since we are using Gradient Booster as a classifier, the cost function is Log loss.
+\emph{Learning rate} and \emph{n\_estimators} are two critical hyperparameters for gradient boosting decision trees. Learning rate, denoted as $\alpha$, simply means how fast the model learns. Each tree added modifies the overall model. The magnitude of the modification is controlled by learning rate. The lower the learning rate, the slower the model learns. That takes more time to train the model which brings us to the other significant hyperparameter. The n\_estimator is the number of trees used in the model. For our model, we used a learning rate of 0.1 and n\_estimator of 200. Since we are using Gradient Booster as a classifier, the cost function is Log loss.
 
 
 \subsection{State-Specific Analysis}
@@ -152,7 +150,7 @@ Since we are using Gradient Booster as a classifier, the cost function is Log lo
 
 \begin{figure}[t]
    \begin{center}
-      \includegraphics[width=0.8\linewidth]{figures/states1.png}
+      \includegraphics[width=1.0\linewidth]{figures/states1.png}
    \end{center}
       \caption{Overdose Deaths Per State}
    \label{fig:google-scholar-1col}
@@ -160,7 +158,7 @@ Since we are using Gradient Booster as a classifier, the cost function is Log lo
 
 \begin{figure}[t]
    \begin{center}
-      \includegraphics[width=0.8\linewidth]{figures/states2.png}
+      \includegraphics[width=1.0\linewidth]{figures/states2.png}
    \end{center}
       \caption{Overdose Deaths Per State and Per Capita}
    \label{fig:states2-1col}
@@ -174,9 +172,9 @@ Since we are using Gradient Booster as a classifier, the cost function is Log lo
    \label{fig:opioidvsnon-1col}
 \end{figure}
 
-The dataset we used has been downloaded from kaggle where it originates from cms.gov. \cite{prescriberDataset} 
+The dataset we used has been downloaded from Kaggle where it originates from cms.gov. \cite{prescriberDataset} 
 
-This dataset contains summaries of prescription records for 250 common opioid and non-opioid drugs written by 25,000 unique licensed medical professionals in 2014 in the United States for citizens covered under Class D Medicare as well as some metadata about the doctors themselves. This is a small subset of data that was sourced from cms.gov. The full dataset contains almost 24 million prescription instances in long format. I have cleaned and compiled this data here in a format with 1 row per prescriber and limited the approximately 1 million total unique prescribers down to 25,000 to keep it manageable. 
+This dataset contains summaries of prescription records for 250 common opioid and non-opioid drugs written by 25,000 unique licensed medical professionals in 2014 in the United States for citizens covered under Class D Medicare as well as some metadata about the doctors themselves. This is a small subset of data that was sourced from cms.gov. The dataset is already cleaned and compiled in a format with 1 row per prescriber and limiting the 1 million total unique prescribers down to 25,000 to keep it manageable.
 The data consists of the following characteristics for each prescriber:
 
 \begin{itemize}
@@ -201,11 +199,8 @@ The following are the observations we made from the dataset:
    \item We also found that the dataset has a slightly higher number of opioid prescribers, when we plot the opioid prescriber count vs non opioid prescriber count. This is seen in Figure 3.
  \end{enumerate}
 
- Once we were done with preprocessing our data, we moved on to building our prediction model. For our prediction model we used the five classification algorithms mentioned earlier. We used sklearn modules (sklearn.linear\_model, sklearn.neighbors, sklearn.ensemble) to run the classifiers for our models.
-The evaluation of our prediction models was done by splitting the data into training and testing sets (sklearn. model selection. train test split). 90\% of the data was then used for training and the remaining 10\% for testing.
-The model was also evaluated by splitting the data using stratified k-fold cross-validation
-(sklearn. model selection.StratifiedKFold). We used 5 folds or splits so that for each fold, 90\% of the data is used for training and the remaining 10\% for testing.
-We repeated this process a total of 100 times to obtain 100 measures of performance for each classifier and calculated the average accuracy and average area under the roc curve scores. 
+Once we were done with preprocessing our data, we moved on to building our prediction model. For our prediction model we used the five classification algorithms mentioned earlier. We used sklearn modules (sklearn.linear\_model, sklearn.neighbors, sklearn.ensemble) to run the classifiers for our models.
+The evaluation of our prediction models was done by splitting the data into training and testing sets (sklearn. model selection. train test split). 90\% of the data was then used for training and the remaining 10\% for testing.The model was also evaluated by splitting the data using stratified k-fold cross-validation (sklearn.model selection.StratifiedKFold). We used 5 folds or splits so that for each fold, 90\% of the data is used for training and the remaining 10\% for testing. We repeated this process a total of 100 times to obtain 100 measures of performance for each classifier and calculated the average accuracy and average area under the roc curve scores. 
 
 The Area Under the Curve (AUC) is the measure of the ability of a classifier to distinguish between classes and is used as a summary of the ROC curve. The higher the AUC, the better the performance of the model at distinguishing between the positive and negative classes.
 
