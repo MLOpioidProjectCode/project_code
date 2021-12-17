@@ -1,6 +1,5 @@
 \documentclass[10pt,twocolumn,letterpaper]{article}
 
-\usepackage{statcourse}
 \usepackage{times}
 \usepackage{epsfig}
 \usepackage{graphicx}
@@ -14,8 +13,6 @@
 % run, let it finish, and you should be clear).
 \usepackage[breaklinks=true,bookmarks=false]{hyperref}
 
-
-\statcoursefinalcopy
 
 
 \setcounter{page}{1}
@@ -33,16 +30,16 @@
 \title{Using Machine Learning to Address the Opioid Crisis}
 
 \author{Megan Skrobacz\\
-{\tt\skrobacz.m@northeastern.edu}
+{\tt\ skrobacz.m@northeastern.edu}
 \and
 Matthew Menzi\\
-{\tt\menzi.m@northeastern.edu}
+{\tt\ menzi.m@northeastern.edu}
 \and
 Yoselyn Cervantes\\
-{\tt\cervantes.y@northeastern.edu}
+{\tt\ cervantes.y@northeastern.edu}
 \and
 Adithya Chundailthodi\\
-{\tt\chundailthodi.a@northeastern.edu}
+{\tt\ chundailthodi.a@northeastern.edu}
 }
 
 \maketitle
@@ -56,9 +53,7 @@ Adithya Chundailthodi\\
 
 %%%%%%%%% ABSTRACT
 \begin{abstract}
-   The abstract for your project goes here. The length of the abstract
-   should be between 200-250 words. Tips for writing a good abstract
-   can be found at \url{anonymized}.
+   \textit{According to the US Center for Disease Control and Prevention, since 1999 almost 850,000 people have died from drug overdoses, and in 2019 more than 70\% of these deaths were attributed solely to opioids \cite{cdc:dataOverview}. While previous studies have used publicly-available data and machine learning models to try and aid in solving this crisis, the vast majority of previous works have focused mainly on users of opioids, specifically using models to predict an individual's chance to become addicted to opioids. For our contribution to this body of work, we instead focus on another side of the opioid supply chain: opioid prescribers. We tackle this topic on three separate fronts, narrowing our analyses to the United States. We first analyze possible influencers to opioid prescribing rates, specifically whether we can find any correlation between pro-prescription lobbying efforts and opioid prescribing rates. We then test several machine learning models to fit a predictor which can identify providers likely to be prescribers of opioids. Finally, we take that model, trained on national data, and apply it to a hyper-local dataset for the state of Connecticut to see if we can garner any additional insights. Surprisingly, we find that lobbying efforts didn't have as much of an impact as we thought on opioid distribution rates, despite the huge sums of money being used for said efforts. We also find that Gradient Boosting worked best for both our national predictor model as well as our state-level analysis.}
 \end{abstract}
 
 %%%%%%%%% BODY TEXT
@@ -67,136 +62,230 @@ Adithya Chundailthodi\\
 \section{Introduction}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 1/2 to 1 pages.}\vspace{1cm}
+Opioid addiction and overdose have become tragic and inescapable threads in the fabric of American daily life. Many Americans know someone who has died of a drug overdose, and even if they do not, headlines announcing high-profile overdose deaths are common news items. Among the hundreds of thousands of opioid related deaths in the past few years are celebrated musicians Prince, Mac Miller, and Tom Petty; accomplished athletes including pitcher Tyler Skaggs, football player Jake Ehlinger, and NHL player Jimmy Hayes; and lauded actors like Philip Seymore Hoffman.
 
-For the report, the same rules and guidelines apply as for the proposal. This is an example of a citation \cite{paszke2019pytorch}; if you use the "cite{}" function in LaTeX, the References section will be created automatically at the end of the document. Please read through the {"proposal.pdf"} document for a refresher on how to use citations and figures properly.
+Data also sheds insight into the scope of this epidemic. According to the United States Center for Disease Control, in 2019 more than 50,000 people in the United States died from opioid-related overdoses \cite{dataabuse.gov}. It is also estimated that 3 million Americans suffer from opioid use disorder, and in 2020, a staggering 93,000 people died in the United States from drug overdoses \cite{stobbe}, most of which were related to opioids. Additionally, studies estimate that the total "economic burden" of prescription opioid misuse in the United States is \$78.5 billion a year, including the costs of healthcare, lost productivity, addiction treatment, and criminal justice involvement \cite{dataabuse.gov}. While the United States is certainly not the only country suffering from this epidemic, statistics like these make it clear that COVID-19 is not the only major medical crisis nations are struggling to contain at the moment.
 
-Note that the sections for this report are different, and some additional information is contained in this template document, so please read it carefully before you start writing.
+Despite numerous studies related to opioid use, we feel there is ample room to take a “deep dive” into publicly-available data and see if we can draw useful conclusions to perhaps provide insight into qualming this crisis. We plan to focus US federal and state datasets to both take a broad look at the situation while also allowing us to delve deeper into more localized data to potentially find trends. More specifically, we hope to place more emphasis on examining the impact of opioid prescribers instead of focusing solely on opioid users, as has been done in other studies. To do this, will first test various machine learning models to try and create classifiers to predict the likelihood that a given doctor is a significant prescriber of opioids using a national dataset. We will then take that model and use it for analysis of a more local dataset -- specifically for the state of Connecticut -- to see if we can find relationships between prescribers who are classified as likely to prescribe opioids and the side effects of opioids, such as drug overdose and rehab data. Finally, we will look to see if other outside factors could be potentially affecting the rate of opioid prescriptions, specifically investigating if we can find a correlation between lobbying efforts of pro-drug interest groups to the amount of opioids prescribed in the region where they exert influence.
 
-This is an example of a mathematical equation:
-
-$$f(\mathbf{x}; \mathbf{w}) = \sum_{i=1}^{n} w_ix_i.$$
-
-This is a mathematical expression, $h(\mathbf{x}) = \hat{y}$ formatted in text. 
-
-The project report should be 6-8 pages long (not counting references)
-and should contain the sections that are already provided in this paper. Please
-check out the text in these sections for further information.
-
-
-\subsection{Subsection}
-
-You can use paragraphs or subsections to further structure your
-main sections. This is an example of a subsection.
-
-\paragraph{This is a paragraph title.} This is an example of a paragraph.
-
-Ideally, your report should contain all the major sections provided in this report template. Please also consult the "report-rubric.md" for further information on these sections and grading.
-
-
+While we do have high hopes for this project, we acknowledge that we are tackling a tough issue that does not necessarily have a perfect answer which can be prescribed by a single machine learning algorithm; indeed, some data we'd like to ideally have for our analysis (such as a better insight into the prevalence of illegal opioids by geography) are simply not available. We also recognize that we have certain limitations geographically on our datasets, as our data is only focused only on the United States. However, we are confident that our exploratory analysis will shed some insights into the nature of this crisis worldwide.
 
 %-------------------------------------------------
 \section{Related Work}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 1/2 to 1 pages.}\vspace{1cm}
+There have been several research efforts centered around this topic, particularly in the fields of machine learning and data science, even within the realm of individual study. For example, both Tara Boyle's "The Opioid Crisis in Data" \cite{boyle2019:online} and Kiros Gebremariam's capstone project \cite{KirosGPr71:online} use machine learning for exploratory analyses of opioid prescription trends. In both Boyle and Gebremariam's works, their analyses of publicly-available federal datasets show that of all medical specialities, general practitioners in family practice and internal medicine prescribed the greatest number of opioids. Additionally, Hydrocodone/Vicodin was far and above the most commonly-prescribed opioid, with more than double the amount of units than the second most-common opioid, Tramadol/Ultram, for the year 2016.
 
-Related work should be discussed here. This should be a short (1/2 to 1 page) discussion of work (from research papers and articles) that explored similar questions. For example, if you plan to predict COVID-19 from chest X-ray images, discuss previous work that was about a similar project. If the focus of your project is on analyzing the behavior of certain machine learning on a variety of different datasets, and the comparison itself (rather application) is the focus of your paper, discuss other papers that analyzed different algorithms.
+The majority of scholarly research is focused around predicting one's chances of opioid abuse disorder based on personal characteristics, as opposed to focusing on the prescribers themselves. Several studies, such as Huinker's analysis \cite{huinkerpaper} go into more detail about possible machine learning algorithms which can be applied to predict the possibility of opioid abuse disorder. Huinkers' study uses four popular machine learning algorithms -- Decision Trees, Artificial Neural Networks, Support Vector Machines, and Logistic Regression -- and ultimately finds a SVM with k-fold cross-validation to be the superior model for predicting individual opioid misuse. Similarly, Lo-Ciganic W et al \cite{10.1001/jamanetworkopen.2019.0968} conclude that machine learning algorithms using administrative data appear to be a valuable and feasible tool for more accurate identification of opioid overdose risk.
+
+Despite these insights, there have been several recent works which highlight potential issues with these models. Rather than try to develop models for opioid abuse indicators, Angela Kilby \cite{10.1145/3442188.3445891} investigates issues with such algorithmic methods currently being used in locales such as medical offices and police departments. Kilby's work, which uses several proprietary datasets, finds that machine-generated risk scores are a form of algorithmic unfairness in machine learning applications as they are heavily dependent on the researcher's choice of objective function, and as such are not reliable indicators of actual risk when deciding treatment. Indeed, critique of machine learning algorithms predicting one's chances of opioid abuse is so prevalent that even mainstream journalistic sources cover the topic. For example, Szalavitz's exposé in Wired \cite{wiredarticle:online} displays how such algorithms currently in use by doctors and drug companies have unfairly discriminated against patients with complex or chronic illnesses, histories of sexual abuse, and women.
 
 %-------------------------------------------------
 \section{Proposed Method}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 1 to 2 pages.}\vspace{1cm}
+\subsection{Lobbying Analysis}
 
-Describe the method(s) you are proposing, developing, or using. Most students will not propose new or modified machine learning methods or algorithms. In this case, describe how the main algorithms you are using work. This may include mathematical details.
+The prediction classifier used for this experiment was linear regression. We are trying to 
+identify  the correlation between s set of scalars and one independent variable. In this case we have lobbying contribution amounts being our dependent variable. This model will calculate the rate of disturbance and find a line of best-fit to show the relationship. 
+We can find the line of best-fit using the following formula:
+$$y\;=\;\theta_1\;+\;\theta_2\;x$$
+Here $\theta_1$ represents the error amount and $\theta_2$ represents the rate of change given $x$ input variables.
+
+\subsection{Prescriber Classifier Analysis}
+
+The following classification algorithms were used to build our prediction model:
+
+\paragraph{Perceptron.} The key idea here is to separate the input into two categories, positive or negative, by drawing a line (a linear operation) in the feature space. The algorithm iteratively corrects misclassifications by adjusting the classification line or boundary. 
+
+We can represent the perceptron in vector form as follows:
+$$h(x) = \sin\left(\sum_{i=0}^dw_ix_i\right) = \sin\left(w^Tx\right)$$
+
+Each “tall” \emph{w} represents a hypothesis \emph{h} and is multiplied with “tall” \emph{x}.
+
+\paragraph{KNearestNeighbors.} The key idea here is to find which training data is closest to the test instance, and classify the test instance as that class.
+
+Majority vote from k-nearest neighbors is defined as:
+$$y = argmax\sum_{\left(x_i,y_i\right)\in D_z}I\left(v = y_i\right)$$
+
+where:
+\begin{itemize}
+ 
+   \item \emph{v} is a class label
+   \item $y_i$ is the class label for one of the nearest neighbors
+   \item \emph{I} is the  indicator function (i.e., 1 if the argument is true, 0 otherwise).
+
+\end{itemize}
+
+\paragraph{Gaussian Naïve Bayes.} The algorithm assumes that selected features are equally important and statistically independent (given the class value). 
+
+With the independence assumption, the probability of class yj generating instance x can 
+then be estimated as:
+$$P\left(x\vert y_j\right)\;=\;P\left(x_1\vert y_j\right)\;\times\;P\left(x_2\vert y_j\right)\;\times\;...\;\times\;P\left(x_n\vert y_j\right)$$
+
+\paragraph{Decision Trees.} This model follows a directed tree structure composed of nodes where each node specifies an evaluation on a feature and each branch corresponds to a feature value/condition. The leaves signify categorical decision or class. The main reasons for using decision trees are that the decision trees: 
+
+\begin{itemize}
+ 
+   \item Divide the feature space into axis parallel rectangles , thus providing an easy method for distinctly dividing the feature set as opioid or non opioid based on the input feature set.
+   \item The target function is discrete valued and decision trees work well in predicting discrete valued target functions.
+
+\end{itemize}
+
+\paragraph{Gradient Booster.} Gradient boosting works by building simpler (weak) prediction models sequentially where each model tries to predict the error left over by the previous model. We combine many weak learners to come up with one strong learner. The weak learners here are the individual decision trees.
+
+\emph{Learning rate} and \emph{n\_estimators} are two critical hyperparameters for gradient boosting decision trees. Learning rate, denoted as $\alpha$, simply means how fast the model learns. Each tree added modifies the overall model. The magnitude of the modification is controlled by learning rate. The lower the learning rate, the slower the model learns. That takes more time to train the model which brings us to the other significant hyperparameter. The n\_estimator is the number of trees used in the model. For our model, we used a learning rate of 0.1 and n\_estimator of 200. Since we are using Gradient Booster as a classifier, the cost function is Log loss.
+
+
+\subsection{State-Specific Analysis}
+
+The goal with the state of Connecticut data was to build a model that could predict a numerical value for the number of opioid-related deaths in a municipality based on certain features. For this task, a regression model would be necessary. There were a few considerations here. One was that the model should be able to handle sparse data. Some datasets represented missing data as -9999 while others used 0 or a blank value. Another consideration was that the model should be tunable to improve performance while avoiding over-fitting. Overfitting was a concern because of the number of features and the specificity of the data to Connecticut. Ideally, the model should be general enough to apply to other states. Finally, for the purpose of analysis, the model should provide some availability to evaluate feature performance.
+
+XGBoost provided an ideal candidate. XGBoost implements gradient boosting to create a model with multiple additive regression trees. Gradient boosting is the process of identifying the features and split thresholds that best improve the cost function to train many weak learners into an ensemble of more powerful learners over a number of iterations. It offers sparsity-awareness, learning how to handle missing values. It also offers a number of parameters that are important for balancing overfitting with accuracy. These include max tree depth, which limits the depth of a tree, min child weight, which requires that the sum of observations weights at a child be a certain minimum, and regularization constants for L1 or L2 regression. Max tree depth and min child weight prevent trees from making splits that are overly specific to one or just a few observations. The regularization constants control how significant the effect of the regularization term is on the cost function. Because we are using XGBoost for regression, the cost function is the root mean square error. 
+
+XGBoost also offers a measure of importance for each feature, which was important for the goals of our model. Feature importance shows how much splits made on a certain feature improved the model. This would allow us to analyze which features have the most predictive power for overdose deaths. 
+
 
 %-------------------------------------------------
 \section{Experiments}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 1/2 to 1 pages.}\vspace{1cm}
+\subsection{Lobbying Analysis}
+There were three datasets for 2018 and 2019 that were used in this experiment. The datasets were taken from US government datasets. \cite{arcos} \cite{fec} \cite{medicareRates}
+The first dataset consists of prescribing rates data in the United States by state. The second dataset contains the amounts of drug distributions in the United States at the state level. The third dataset contains monetary contributions made by large pharmaceutical companies. We linked all three datasets by year and by state when the data was present. The datasets were reduced to about 80,000 rows by taking sums of some of the features. 
+Once the data was merged we used Python's built in Spearman correlation ranking tool to go through a series of feature selection. The list of features included:
+\begin{itemize}
+   \item \emph{Year} - whether data was from year 2018 or 2019
+   \item \emph{Breakout} - urban or rural area
+   \item \emph{Tot\_Opioid\_Prscrbrs} - total number of prescribers in the US
+   \item \emph{Tot\_Clms} - total number of claims made by state
+   \item \emph{Opioid\_Prscrbng\_Rate\_5Y\_Chg} - the rate of change in a 5 year period
+   \item \emph{Opioid\_Prscrbng\_Rate\_1Y\_Chg} - the rate of change in a 1 year period
+   \item \emph{Prscrbr\_State\_Abrvtn} - the state the data was taken from
+   \item \emph{Total\_grams} - total amount of opioids distributed by state
+   \item \emph{Contributor\_aggregate\_ytd} - total amount of lobbying contributions by year
+\end{itemize}
 
-Describe the experiments you performed to address specific questions. This includes information about the dataset and software, which are listed as subsections below. Please do not remove these subsections.
+\subsection{Prescriber Classifier Analysis}
 
-\begin{figure}[t]
-\begin{center}
-   \includegraphics[width=0.8\linewidth]{figures/google-scholar.png}
-\end{center}
-   \caption{Example of a figure. Please see the {"proposal.pdf"} file for a refresher on using 1-column and 2-column figures.}
-\label{fig:google-scholar-1col}
-\end{figure}
+The dataset we used has been downloaded from Kaggle where it originates from cms.gov. \cite{prescriberDataset} 
 
-\subsection{Dataset}
+This dataset contains summaries of prescription records for 250 common opioid and non-opioid drugs written by 25,000 unique licensed medical professionals in 2014 in the United States for citizens covered under Class D Medicare as well as some metadata about the doctors themselves. This is a small subset of data that was sourced from cms.gov. The dataset is already cleaned and compiled in a format with 1 row per prescriber and limiting the 1 million total unique prescribers down to 25,000 to keep it manageable.
+The data consists of the following characteristics for each prescriber:
 
-Briefly describe your dataset in a separate subsection.
+\begin{itemize}
+ 
+   \item \emph{NPI} - unique National Provider Identifier number
+   \item \emph{Gender} - male (M) or female (F)
+   \item \emph{State} - U.S. State by abbreviation
+   \item \emph{Specialty} - description of type of medicinal practice
+   \item A long list of drugs with numeric values indicating the total number of prescriptions written for the year by that individual
+   \item \emph{Opioid.Prescriber} - a boolean label indicating whether or not that individual prescribed opiate drugs more than 10 times in the year
+
+\end{itemize}
+
+Once we had the dataset ready, we moved on to preprocessing and exploring the data.
+There wasn't much cleaning needed for our dataset apart from converting our categorical columns (Credentials and Specialty) to values. We used the label encoder provided by sklearn.preprocessing library to encode the columns with values between 0 and n\_classes - 1.
+
+The following are the observations we made from the dataset:
+
+\begin{enumerate}
+   \item The state of California is leading with the highest number of deaths due to overdose. Pennsylvania has been hit particularly hard with 2,750 reported overdose deaths in 2014. It was closely followed by Florida, which has 2600 reported overdose deaths (Please refer to the jupyter notebook \cite{adithyasNotebook} for info on more states).
+   \item We need to remember, however, California is a huge state with a matching population. Even though the total number of deaths is huge, it doesn't imply that people in California have a higher death rate. Because of this we need to take a look at the values of deaths per capita. We saw that West Virginia, New Mexico, New Hampshire, Ohio, Kentucky and Delaware stand out.
+ \end{enumerate}
+
+Once we were done with preprocessing our data, we moved on to building our prediction model. For our prediction model we used the five classification algorithms mentioned earlier. We used sklearn modules (sklearn.linear\_model, sklearn.neighbors, sklearn.ensemble) to run the classifiers for our models.
+The evaluation of our prediction models was done by splitting the data into training and testing sets (sklearn. model selection. train test split). 90\% of the data was then used for training and the remaining 10\% for testing.The model was also evaluated by splitting the data using stratified k-fold cross-validation (sklearn.model selection.StratifiedKFold). We used 5 folds or splits so that for each fold, 90\% of the data is used for training and the remaining 10\% for testing. We repeated this process a total of 100 times to obtain 100 measures of performance for each classifier and calculated the average accuracy and average area under the roc curve scores. 
+
+The Area Under the Curve (AUC) is the measure of the ability of a classifier to distinguish between classes and is used as a summary of the ROC curve. The higher the AUC, the better the performance of the model at distinguishing between the positive and negative classes.
+
+The Accuracy score is the fraction of predictions our model got right. Formally, accuracy has the following definition:
+$$Accuracy\;=\;\frac{TP\;+\;TN}{TP\;+\;TN\;+\;FP\;+\;FN}$$
+where $TP$ = True Positives, $TN$ = True Negatives, $FP$ = False Positives, and $FN$ = False Negatives.
 
 
-Table \ref{tab:some-table} shows an example for formatting a table.
+\subsection{State-Specific Analysis}
 
-\begin{table}
-\begin{center}
-\begin{tabular}{|l|c|}
-\hline
-Method & Accuracy \\
-\hline\hline
-Method 1 & $70 \pm 3$ \% \\
- Method 2 & $76 \pm 3$ \% \\
-\hline
-\end{tabular}
-\end{center}
-\label{tab:some-table}
-\caption{This is an example of a table.}
-\end{table}
+Data was all sourced from a github repository \cite{dataCollaborative} or in the case of provider data collected using web-scraper. From the repository, we selected datasets that could provide relevant information to the economic and social situation of a town or that could potentially affect opioid access. Each dataset was read from a url into a pandas DataFrame object and indexed by town and year. Some data offered measures for both percentage of residents in a category and absolute number of residents in a category. Because the predicted value would be absolute number of overdose deaths, this data was filtered to exclude the percentages. Most datasets also included a margin of error which was also excluded. Datasets were then inspected to see if relevant features could be separated from the total measures. For example, veteran status data was broken into 4 features – male veterans 18-34, male veterans 35-55, female veterans 18-34, and female veterans 35-55. This proved to be a good approach in a few cases. For example, young male veteran data was an important feature in most versions of the model while females with a bachelor’s degree or higher was an important feature as well. After 47 features were selected, they were concatenated into a single DataFrame indexed by town and year with feature names as column labels.
 
+The drug overdose data posed its own specific challenge. The data we wanted to glean from it was the number of opioid overdoses in a year in a specific town, but it gave 7000 separate rows for each overdose. In some cases, the drug responsible for overdose was not appropriately labeled. In others, the town name was spelled incorrectly. To fix these, we created a column that would show true if an opioid was involved in the death and populated it if an opioid type of drug was noted either in its own feature column or by name in a description of the event. We also identified all misspelled town names or sub-villages of a town and replaced those with one of the appropriate 169 Connecticut town names. This data was then broken down into separate data frames for each year. On the “Death City” column, which showed the city that each overdose example occurred in, a value count was run for each year’s data. This value count for the cities was then labeled with the appropriate year and indexed by the year and city with the number of times a city was noted as a place of death as the feature value. This was then concatenated with the overall data.
 
+An XGBoost regressor was trained with the 47 features as X values and number of deaths per town as Y values. Repeated K fold cross validation was used to grade the success of a model. Feature importance was then plotted to give a visual depiction. This was done for two models. One used the absolute value of a feature in a year as X and Y values and one used the year over year change (i.e., how many deaths were there this year vs. how many more deaths were there this year than last year).
 
-
-\subsection{Software}
-
-Briefly list (and cite) software software you used.
-
-\subsection{Hardware}
-
-If relevant, list hardware resources you used.
 
 %-------------------------------------------------
 \section{Results and Discussion}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 2 to 3 pages.}\vspace{1cm}
+\subsection{Lobbying Analysis}
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=1.0\linewidth]{figures/truevsnotlinreg.png}
+   \end{center}
+      \caption{Predicted vs Actual Values, Lobbying Analysis}
+   \label{fig:truevsnotlinreg-1col}
+\end{figure}
 
-Describe the results you obtained from the experiments and interpret them.
-Optionally, you could split "Results and Discussion" into two separate
-sections, but it is often easier to present the results and discuss them at the same time. In this section, you will likely want to create several subsections that address your specific research questions. As an example for structuring the Results and Discussion section, you can take a look at the following paper: \url{anonymized}.
+The evaluation of the model was done by comparing the mean squared error of the predicted values and the actual values. The mean-squared error of the three samples taken was less than two.  We also took the $R^2$ scores which ranged between -.02 and .01. The $R^2$ value represents the proportion of variance of the dependent variables. These numbers are low implying our model was successful, however the merging of the data might have caused it to be overfitted. The results are so close to 0 that the model is at risk of being too biased and therefore unreliable.
+
+Figure 1 shows the scatter plot for the best performing subset. Even though the squared mean value is low, the results are difficult to interpret. With linear regression we aim to find a linear representation and from the plot we see that is not possible. It is probable that linear regression was the wrong approach for this prediction. There are two other figures and additional results included in the project repository \cite{yoselynsNotebook} with similar results. 
+
+\subsection{Prescriber Classifier Analysis}
+
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=0.6\linewidth]{figures/predictormodel1.png}
+   \end{center}
+      \caption{Prescriber Classifier, No Cross-Validation}
+   \label{fig:predictormodel1-1col}
+\end{figure}
+
+\begin{figure}[t]
+   \begin{center}
+      \includegraphics[width=0.6\linewidth]{figures/predictormodel2.png}
+   \end{center}
+      \caption{Prescriber Classifier, 5-Fold Cross-Validation}
+   \label{fig:predictormodel2-1col}
+\end{figure}
+
+The evaluation of our prediction models was done by splitting the data into training and testing sets. The model was also evaluated by splitting the data using stratified k-fold cross-validation.
+
+Figure 2 shows the results we obtained on the test data for the train-test splits. According to the Train-Test Splits, the KNN and the Gradient Booster classifiers have better Accuracy and AUROC scores when compared to the other classifiers.
+
+Figure 3 shows the results when using 5-fold cross validation. According to the 5-Fold Cross Validation, the Gradient Boosting classifier has better Accuracy and AUROC scores when compared to the other classifiers.
+
+Looking at the average scores from the two model evaluators, we can conclude that the KNN and Gradient Booster Classifiers perform the best on the given data since they yield the highest accuracy and AUROC scores when evaluated using the train-test split and k-folds cross-validation methods.
+The difference is statistically significant since the classifiers have been evaluated 100 times and the accuracy and the AUROC scores have been averaged across the 100 iterations. We can also see that the standard deviation of the scores for each classifier are very small.
+
+From the aforementioned accuracy scores, we can see the perceptron and the Gaussian Naïve Bayes performed the worst, only achieving accuracy scores 70 and 61 respectively. An explanation to why the Gaussian Naïve Bayes performed the worst is that the GNB algorithm assumes the features to be independent of each other and for our prediction algorithm, we considered features such as credentials, specialty and list of drugs which are highly correlated. One of the reasons the perceptron performed badly is because our data was not linearly separable. The perceptron works best when the data is linearly-separable.
+
+
+\subsection{State-Specific Analysis}
+
+The hyperparameters max depth and min child weights were tuned on the model \cite{mattsNotebook} using absolute numbers as feature values. First, the default child weight was used and max depth of 1, 3, 10, and 20 were tested. The R2 of the first model was decent in cross validation, averaging around 0.8. It generally improved at depths 3 and 10 but did not at depth 20, which is a far greater depth than generally recommended.
+There was significant convergence to significant features as tree depth increased. At max depth 1, the average age of women in a town was one of the two most significant features, which seemed un-intuitive. The later rounds converged on the number of residents receiving food stamps (SNAP), the number of women with a bachelors degree or higher, the number of middle aged male veterans, and the number of adults 18-64 with public insurance as the most significant features.
+
+Interestingly, increasing the minimum child weight from 1 to 10 (making splits less specific in the process) improved R2. It also changed the importance of certain features. At max depth 3 and min weight 10, the number of people receiving public insurance became the most important feature. At max depth 3 and weight 20, R2 was not significantly diminished, but some features took new importance, like the number of males with only a high school diploma. At max depth 100, R2 was significantly diminished.
+
+Using the data that represented the change in absolute feature values, R2 scores showed similar changes through parameter tuning. However, there was some change to significant features. There was much less convergence to certain features, with all features showing some degree of importance. Two features that were not important to the absolute number model were now significant in every tuned variation of this model, though – change in population and number of DUI crashes.
+
+I believe that the experiment illustrated that XGBoost could be a valuable tool for the task at hand. It performed well both predicting the number of deaths in a municipality and the yearly increase in deaths in a municipality. It also proved useful for features selection in the manner we hoped that it would. The features it converged to as important seemed to make intuitive sense and could be used to direct further data collection for improved models or models for other states. Specifically, it seemed to show that access to public health resources is an important factor in the number of opioid overdoses experienced.  
 
 %-------------------------------------------------
 \section{Conclusions}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 1/3 to 1/2 page.}\vspace{1cm}
+Overall, the goal of this project was not necessarily to find a “silver bullet” when it came to stopping the opioid crisis; indeed, if anything our analysis underscores that this issue, even when investigating just a subset of its architecture, is both complex and multifaceted. However, we feel as though we have taken a good first step into studying a piece of this crisis that hasn't already been extensively researched by other academics, at least to our knowledge. 
 
-Describe your conclusions here. If there are any future directions, you can
-describe them here, or you can create a new section for future directions.
+Our findings have allowed us to challenge conventional logic; for example, that pro-opioid lobbying would have a significant impact on opioid prescriber rates. This can of course be due to a myriad of factors - for example, perhaps this is in part due to the “bad press” around opioids and patients specifically requesting opioid alternatives - but it at least gives insight into where current funding should be focused in order to combat this crisis. We were also able to successfully create a classifier using Gradient Boosting which can perhaps be used as a starting point to identify potential “bad actors” when it comes to clinicians and opioid distribution. While we acknowledge that a large part of this crisis revolves around users overdosing from spiked or black-market opioids, many of these users get initially addicted because of opioids prescribed legally. Having a classifier which can successfully predict which doctors, based on features from national datasets, are “likely” to prescribe opioids can raise alarm when outliers arise. Finally, our local analysis using Connecticut data allowed us to pinpoint features that are prevalent in locations where opioids are commonly prescribed.
 
-%-------------------------------------------------
-\section{Acknowledgements}
-%-------------------------------------------------
-
-\noindent\textit{Recommended length: 2-4 sentences.}\vspace{1cm}
-
-List acknowledgements if any. For example, if someone provided you a dataset, or
-you used someone else's resources, this is a good place to acknowledge
-the help or support you received.
+For future analyses, we think there is tremendous potential for domain-level experts to provide more insight into the raw data we utilized to perhaps garner additional insights we may have missed. Additionally, we think that our work could benefit from the addition of data we did not use or have access to, such as private datasets from drug companies. Finally, we would be interested to see future works of other states besides Connecticut to see if our findings can be replicated in different geographies. 
 
 %-------------------------------------------------
 \section{Contributions}
 %-------------------------------------------------
 
-\noindent\textit{Recommended length: 1/3 to 1/2 page.}\vspace{1cm}
-
-Describe the contributions of each team member who worked on this project.
-
+Each group member equally researched potential ideas for our project, as well as looking up datasets we could potentially use. For the proposal, each of us wrote at least one section, and we came together to transform our prose into an acceptable LaTex format. As we decided to do three unique analyses, three members of our group took responsibility for each. Yoselyn focused on the piece of our analysis which covered the effect of lobbying groups on opioid distribution rates; Adithya was responsible for the prescriber classifier portion of our analysis; and Matthew finished the piece on our state-level analysis. All three of these group members needed to clean the raw datasets to their liking, and in some cases find additional datasets to complement the shared federal ones in our Github repo. They all also completed a python workbook with their findings, wrote the sections of this paper specific to their analyses, and added some slides to our PowerPoint presentation about their findings. This left Megan to handle most of the other work necessary for this project. She set up the initial Github repo holding our shared works and populated it with raw datasets; helped other group members with cleaning and formatting datasets; put together the majority of the PowerPoint presentation; and wrote about half of this report, including putting it together.
 
 {\small
 \bibliographystyle{ieee}
